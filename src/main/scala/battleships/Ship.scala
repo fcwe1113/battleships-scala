@@ -16,9 +16,9 @@ abstract class Ship(length: Int) { // do error checking outside before running c
       //    println(origin(i)(0).tostring)
       origin(0) = origin(0) + 1 // default ship direction is right
     }
-    for (i <- placement.indices) {
-      println(placement(i).mkString("Array(", ", ", ")"))
-    }
+//    for (i <- placement.indices) {
+//      println(placement(i).mkString("Array(", ", ", ")"))
+//    }
   }
 
   def isCollide(coord: Array[Int]): Boolean = {
@@ -27,6 +27,15 @@ abstract class Ship(length: Int) { // do error checking outside before running c
       if (coord(0) == placement(i)(0) && coord(1) == placement(i)(1)){
         output = true
       }
+    }
+    output
+  }
+
+  def isCollide(ship: Ship): Boolean = {
+    var output = false
+    var coord: Array[Int] = Array(-1, -1)
+    for (coord <- ship.getPlacement){
+      if isCollide(coord) then output = true
     }
     output
   }
@@ -40,6 +49,10 @@ abstract class Ship(length: Int) { // do error checking outside before running c
       }
     }
     output
+  }
+
+  def getPlacement: Array[Array[Int]] = {
+    placement
   }
 
 }
