@@ -4,6 +4,7 @@ import battleships.Space.HIT
 
 import scala.collection.mutable
 import scala.io.StdIn.readLine
+import scala.language.postfixOps
 import scala.util.Random
 
 
@@ -11,7 +12,7 @@ import scala.util.Random
 object Game{ // this class only exist once and is essentially treated as a static class
 
   private val board = new Board
-  private val shotsTaken = 0
+  private var shotsTaken = 0
   private var gameEnd = false
   private val shipList: mutable.Buffer[Ship] = mutable.Buffer[Ship]()
   private val lengths = Array(2, 3, 3, 4, 5)
@@ -80,6 +81,7 @@ object Game{ // this class only exist once and is essentially treated as a stati
       if (input == "y" || input == "n") {
         validInput = true
         if (input == "y") {
+          shotsTaken+=1
           var hit = false
           for (ship <- shipList){
 //            println(ship.isCollide(Array(inputss(0) - 1, inputss(1) - 1)))
