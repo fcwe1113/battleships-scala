@@ -1,12 +1,14 @@
 package battleships
 
+import battleships.Space.HIT
+
 import scala.collection.mutable
 import scala.io.StdIn.readLine
 import scala.util.Random
 
 
 
-object Game{
+object Game{ // this class only exist once and is essentially treated as a static class
 
   private val board = new Board
   private val shotsTaken = 0
@@ -55,14 +57,57 @@ object Game{
   }
 
   private def shoot(): Unit = {
-    println("shoot")
+    var validInput = false
+    var inputs = Array("")
+    while (!validInput) {
+      println("please enter the row and column in the format of : ROW,COLUMN")
+      inputs = readLine().split(',').map(_.trim)
+      if (inputs.length != 2){
+        println("incorrect format, please enter in the format of : ROW,COLUMN")
+      } else {
+        validInput = true
+      }
+
+    }
+    validInput = false
+    val inputss = inputs.map(_.toInt)
+    val originalValue = board.getBoard(inputss(0) - 1, inputss(1) - 1)
+    board.setBoard(inputss(0) - 1, inputss(1) - 1, Space.TARGETING)
+    board.printBoard()
+    while (!validInput) {
+      println("You sure you want to shoot there?(Y/N)")
+      val input = readLine().trim.toLowerCase()
+      if (input == "y" || input == "n") {
+        validInput = true
+        if (input == "y") {
+          var hit = false
+          for (ship <- shipList){
+//            println(ship.isCollide(Array(inputss(0) - 1, inputss(1) - 1)))
+            if ship.isCollide(Array(inputss(0) - 1, inputss(1) - 1)) then hit = true
+          }
+
+          if (hit) {
+            board.setBoard(inputss(0) - 1, inputss(1) - 1, Space.HIT)
+          } else {
+            board.setBoard(inputss(0) - 1, inputss(1) - 1, Space.MISS)
+          }
+        } else {
+          board.setBoard(inputss(0) - 1, inputss(1) - 1, originalValue)
+        }
+      } else {
+        println("invalid input")
+      }
+    }
+
   }
 
   private def forfeit(): Unit = {
     for (ship <- shipList){
       for (coord <- ship.getPlacement){
         //        println(s"${coord.mkString("Array(", ", ", ")")}")
-        board.setBoard(coord(0), coord(1), Space.FORFEIT)
+        if (board.getBoard(coord(0), coord(1)) != HIT) {
+          board.setBoard(coord(0), coord(1), Space.FORFEIT)
+        }
       }
     }
     board.printBoard()

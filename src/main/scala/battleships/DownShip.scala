@@ -11,8 +11,14 @@ class DownShip(length: Int) extends Ship(length){
       //    println(origin(i)(0).tostring)
       origin(1) = origin(1) + 1 // default ship direction is right
     }
-    for (i <- placement.indices) {
-      println(placement(i).mkString("Array(", ", ", ")"))
-    }
+//    for (i <- placement.indices) {
+//      println(placement(i).mkString("Array(", ", ", ")"))
+//    }
+
+    
+  }
+
+  override def toString: String = {
+    s"origin: ${placement(0).mkString("Array(", ", ", ")")}, dir: Down, length: ${length}"
   }
 }

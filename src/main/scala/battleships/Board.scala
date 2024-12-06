@@ -38,4 +38,8 @@ class Board { // note with no parameter the inferred constructor will hv no para
   def setBoard(x: Int, y: Int, value: Space): Unit = {
     grid(x)(y) = value
   }
+  
+  def getBoard(x: Int, y: Int): Space = {
+    grid(x)(y)
+  }
 }
