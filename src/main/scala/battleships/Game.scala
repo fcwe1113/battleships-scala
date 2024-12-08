@@ -7,9 +7,7 @@ import scala.io.StdIn.readLine
 import scala.language.postfixOps
 import scala.util.Random
 
-
-
-object Game{ // this class only exist once and is essentially treated as a static class
+object Game{ // this class only exist once and is essentially treated as a static class from java
 
   private val board = new Board
   private var shotsTaken = 0
@@ -23,7 +21,7 @@ object Game{ // this class only exist once and is essentially treated as a stati
     while (!gameEnd) {
 
       board.printBoard()
-      println(s"Misses: ${Space.MISS.toString}\tHits: ${Space.HIT.toString}\nShots fired: ${shotsTaken}\nPlease select from the following:\n1. shoot\n2. forfeit")
+      println(s"Misses: ${Space.MISS.toString}\tHits: ${Space.HIT.toString}\nShots fired: $shotsTaken\nPlease select from the following:\n1. shoot\n2. forfeit")
       readLine() match
         case "1" => shoot()
         case "2" => forfeit()
@@ -32,6 +30,8 @@ object Game{ // this class only exist once and is essentially treated as a stati
     }
   }
 
+  // function declaration contains the return type right before the {
+  // if it says Unit that means it returns nothing
   private def ship_gen(lengths: Array[Int]): Unit = {
     val rng = new Random()
 
@@ -49,7 +49,7 @@ object Game{ // this class only exist once and is essentially treated as a stati
           case 4 => newShip = new RightShip(Array(rng.nextInt(10), rng.nextInt(10)), i) // if they randomized the upper limit then right lol
         }
         if newShip.isOutOfBounds then done = false
-        for (ship <- shipList){
+        for (ship <- shipList){ // equivalent to foreach ship in shipList
           if ship.isCollide(newShip) then done = false
         }
       }
@@ -84,7 +84,6 @@ object Game{ // this class only exist once and is essentially treated as a stati
           shotsTaken+=1
           var hit = false
           for (ship <- shipList){
-//            println(ship.isCollide(Array(inputss(0) - 1, inputss(1) - 1)))
             if ship.isCollide(Array(inputss(0) - 1, inputss(1) - 1)) then hit = true
           }
 
@@ -106,8 +105,7 @@ object Game{ // this class only exist once and is essentially treated as a stati
   private def forfeit(): Unit = {
     for (ship <- shipList){
       for (coord <- ship.getPlacement){
-        //        println(s"${coord.mkString("Array(", ", ", ")")}")
-        if (board.getBoard(coord(0), coord(1)) != HIT) {
+        if (board.getBoard(coord(0), coord(1)) != HIT) { // sometimes the logic of java/scala just amazes me, why does one use of the enum needs the class name and one doesnt
           board.setBoard(coord(0), coord(1), Space.FORFEIT)
         }
       }
