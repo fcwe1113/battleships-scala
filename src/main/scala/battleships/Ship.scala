@@ -6,7 +6,7 @@ import scala.language.postfixOps
 
 // on one hand it just gives you a primary constructor that does the most common thing constructors do on paper which is passing values
 // but the second you want to self define your primary constructor to do anything beyond that then you have to jump thru like 10 burning hoops to even do that
-// and fucks up the rest of your class declaration because you define you put your self define code on the scope where class members and methods live
+// and fucks up the rest of your class declaration because you define your custom code on the scope where class members and methods live
 // so newcomers to the language have to break the cardinal rule for class declaration (putting code outside of methods) especially when they come from java 
 // because scala is a java derivative
 // what i did here is essentially cheat by leaving the initial class member declaration incomplete by leaving out member i would have added on day one
