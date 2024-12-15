@@ -20,6 +20,7 @@ abstract class Ship(length: Int) { // do error checking outside before running c
   // i have to fill in something here or scala points a gun to my fucking head and say abstract all your children
   protected var placement: Array[Array[Int]] = Array.fill(2, 2)(-1)
 
+  // this constructor is never used treat it as the template the other 4 class constructors used
   def this(origin: Array[Int], length: Int) = { // length should be a class member where origin is only a temporary var to iterate with
     this(length) // here its running the primary constructor which does nothing
     placement = Array.fill(length, 2)(-1) // redo the array to extend it
