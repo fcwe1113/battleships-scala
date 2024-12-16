@@ -65,11 +65,13 @@ object Game{ // this class only exist once and is essentially treated as a stati
       inputs = readLine().split(',').map(_.trim)
       if (inputs.length != 2){
         println("incorrect format, please enter in the format of : ROW,COLUMN")
+      } else if (inputs(0).toInt < 1 || inputs(0).toInt > 10 || inputs(1).toInt < 1 || inputs(1).toInt > 10) {
+        println("please enter numbers within 1 to 10")
       } else {
         validInput = true
       }
-
     }
+    
     validInput = false
     val inputss = inputs.map(_.toInt)
     val originalValue = board.getBoard(inputss(0) - 1, inputss(1) - 1)
